@@ -30,9 +30,7 @@ const Layout = () => {
       if (payload.eventType === "INSERT" || payload.eventType === "UPDATE") {
         noteStore.set([payload.new]);
       } else if (payload.eventType === "DELETE") {
-        if (payload.old && payload.old.id) {
-          noteStore.delete(payload.old.id);
-        }
+        noteStore.delete(payload.old.id!);
       }
     });
   };
@@ -49,7 +47,7 @@ const Layout = () => {
     const notes = await noteRepository.findByKeyword(currentUser!.id, keyword);
     if (notes == null) return;
     noteStore.set(notes);
-    setSearchResult(notes);
+    setSearchResult(notes ?? []);
   };
 
   const moveToDetail = (noteId: number) => {
@@ -57,7 +55,8 @@ const Layout = () => {
     setIsShowModal(false);
   };
 
-  if (currentUser == null) return <Navigate replace to="signin" />;
+  if (currentUser == null) return <Navigate replace to="/signin" />;
+
   return (
     <div className="h-full flex">
       {!isLoading && (
