@@ -5,6 +5,7 @@ import { useCurrentUserStore } from "@/modules/auth/current-user.state";
 import { noteRepository } from "@/modules/notes/note.repository";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { Note } from "@/modules/notes/note.entity";
 
 interface NoteListProps {
   layer?: number;
@@ -28,7 +29,7 @@ export function NoteList({ layer = 0, parentId }: NoteListProps) {
     moveToDetail(newNote.id);
   };
 
-  const fetchChildren = async (e: React.MouseEvent, note: Node) => {
+  const fetchChildren = async (e: React.MouseEvent, note: Note) => {
     e.stopPropagation();
     const children = await noteRepository.find(currentUser!.id, note.id);
     if (children == null) return;
