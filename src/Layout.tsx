@@ -30,7 +30,7 @@ const Layout = () => {
       if (payload.eventType === "INSERT" || payload.eventType === "UPDATE") {
         noteStore.set([payload.new]);
       } else if (payload.eventType === "DELETE") {
-        if (payload.old.id) {
+        if (payload.old && payload.old.id) {
           noteStore.delete(payload.old.id);
         }
       }
