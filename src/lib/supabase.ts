@@ -5,7 +5,6 @@ import {
 } from "@supabase/supabase-js";
 import { Database } from "../../database.types";
 import { Note } from "@/modules/notes/note.entity";
-import { channel } from "diagnostics_channel";
 
 export const supabase = createClient<Database>(
   import.meta.env.VITE_SUPABASE_URL,
